@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Password Manager</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div id="landing_menu">
+    <h1 class="home-title">🔐 Password Manager</h1>
+    <button onclick="handleButtonClick(event)" id="new-password" class="menu-button">New Password</button>
+    <button onclick="handleButtonClick(event)" id="recall-password" class="menu-button">Recall a Password</button>
+    <button onclick="handleButtonClick(event)" id="saved-password" class="menu-button">Saved Passwords</button>
+  </div>
+
+  <div id="back-button-section">
+    <button onclick="handleButtonClick(event)" id="back-button" class="back-button">&#8592; Back</button>
+  </div>
+
+  <div id="overall_buttons">
+
+    <div id="new_password_section" class="onclick_section">
+      <form id="create-password-form">
+        <input id="password_len" type="number" placeholder="Password Length" required>
+        <input id="web_name" type="text" placeholder="Website Name" required>
+        <button type="submit">Create Your Password</button>
+      </form>
+      <h3 id="success_message"></h3>
+    </div>
+
+    <div id="recall_password_section" class="onclick_section">
+      <form id="recall-password-form">
+        <input id="recalled_website" type="text" placeholder="Website Name (e.g. Google)" required>
+        <button type="submit">Fetch Your Password</button>
+      </form>
+      <h4 id="fetched_password"></h4>
+    </div>
+
+    <div id="saved_passwords" class="onclick_section">
+      <h2>Your Stored Websites:</h2>
+      <div id="stored_websites"></div>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
