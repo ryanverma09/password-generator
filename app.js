@@ -1,3 +1,5 @@
+const BACKEND_URL = "https://password-generator-dfv9.onrender.com";
+
 function handleButtonClick(event) {
     const clickedButtonID = event.target.id;
     const newPasswordSection = document.getElementById("new_password_section");
@@ -44,7 +46,7 @@ createForm.addEventListener('submit', async function(event) {
     const called_name = document.getElementById("web_name").value;
 
     try {
-        const response = await fetch(`http://127.0.0.1:8000/create-password?site_input=${called_name}&pass_len=${called_length}`, { method: "POST" });
+        const response = await fetch(`${BACKEND_URL}/create-password?site_input=${called_name}&pass_len=${called_length}`, { method: "POST" });
         const data = await response.json();
         document.getElementById("success_message").innerHTML = data.generated;
         createForm.reset();
@@ -61,7 +63,7 @@ recallForm.addEventListener('submit', async function(event) {
     const called_website = document.getElementById("recalled_website").value;
 
     try {
-        const response = await fetch(`http://127.0.0.1:8000/fetch-password?website_name=${called_website}`);
+        const response = await fetch(`${BACKEND_URL}/fetch-password?website_name=${called_website}`);
         const data = await response.json();
         const w = String(data.website_name).toWellFormed();
         const formattedWebsite = w.charAt(0).toUpperCase() + w.slice(1);
@@ -75,14 +77,17 @@ recallForm.addEventListener('submit', async function(event) {
 
 // Load saved websites on page load
 const websites_contain = document.getElementById('stored_websites');
-fetch('http://127.0.0.1:8000/password-library')
+fetch(`${BACKEND_URL}/password-library`)
     .then(response => response.json())
     .then(data => {
         const websites = data.websites;
         for (const website of websites) {
-            const h5_website = document.createElement("h5");
-            h5_website.textContent = website;
-            websites_contain.appendChild(h5_website);
+            if(website.length != 0) {
+                // Handle empty website names if necessary
+                const h5_website = document.createElement("h5");
+                h5_website.textContent = website;
+                websites_contain.appendChild(h5_website);
+            }
         }
     })
     .catch(err => {
